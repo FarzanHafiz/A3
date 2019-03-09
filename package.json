@@ -1,12 +1,9 @@
 {
-  "name": "socket-chat-example",
-  "version": "0.0.1",
-  "description": "my first socket.io app",
-  "dependencies": {
-    "express": "^4.16.4",
-    "socket.io": "^2.2.0"
-  },
-  "scripts": {
-    "start": "node index.js"
-  }
+    "name": "Assignment 3",
+    "version": "0.0.1",
+    "description": "A simple web chat application",
+    "dependencies": {
+        "express": "^4.16.4",
+        "socket.io": "^2.2.0"
+    }
 }
