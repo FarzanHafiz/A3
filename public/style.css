@@ -82,3 +82,10 @@ h1 {
     width: 20%;
 }
 
+#users {
+    list-style-type: none; 
+}
+
+#users li {
+    padding: 5px 10px; 
+}
