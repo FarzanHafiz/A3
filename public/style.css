@@ -38,7 +38,7 @@ form button {
     position: absolute; 
     bottom: 7%; 
     overflow-y: auto; 
-    max-height: 86%; 
+    max-height: 82%; 
     width: 80%; 
 }
 
@@ -53,9 +53,15 @@ h1 {
 }
 
 #userName{
+    background: rgb(189, 190, 190);
+    margin-top: -9px;
     float: left;
     height: 20px;
     width: 80%;
+}
+
+#userNameTitle {
+    position: fixed;
 }
 
 #onlineHeader {
@@ -70,7 +76,7 @@ h1 {
 #chatWindow {
     float: left;
     overflow: auto;
-    max-height: 86%;
+    max-height: 82%;
     width: 80%;
     word-wrap: break-word;
 }
