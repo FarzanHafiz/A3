@@ -87,7 +87,7 @@ io.on('connection', function (socket) {
                     userNameList[j] = socket.nickname;
                   }
                 }
-                socket.emit('userNameTitle', "Nick name is: " + socket.nickname);
+                socket.emit('userNameTitle', "You are " + socket.nickname);
                 
                 io.emit('onlineUsers', userNameList);
             }
