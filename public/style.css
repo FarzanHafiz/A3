@@ -30,14 +30,15 @@ form button {
     padding: 10px; 
 }
 
-#messages { 
+#messages {
+    background: rgb(234, 253, 231);
     list-style-type: none; 
     margin: 0; 
     padding: 0; 
     position: absolute; 
     bottom: 7%; 
     overflow-y: auto; 
-    max-height: 85%; 
+    max-height: 86%; 
     width: 80%; 
 }
 
@@ -69,7 +70,7 @@ h1 {
 #chatWindow {
     float: left;
     overflow: auto;
-    max-height: 85%;
+    max-height: 86%;
     width: 80%;
     word-wrap: break-word;
 }
