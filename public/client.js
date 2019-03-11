@@ -1,9 +1,5 @@
 $(function () {
     var socket = io();
-    var chatMessage = "";
-    var message;
-    var fullMessage;
-
     $('form').submit(function(e){
       e.preventDefault(); // prevents page reloading
       socket.emit('chat message', $('#m').val());
@@ -22,26 +18,27 @@ $(function () {
         socket.emit('update userlist');
     });
 
-    //update user list
-    socket.on('onlineUsers', function(msg){
-        len = msg.length;
-        $('#users').empty();
-        for(i = 0; i < msg.length; i += 2){
-          chatMessage += "<b>" + msg[i] + "</b>" + "<br/>";
-        }
-        $('#users').append($('<li>').html(chatMessage));
-    });
-
     //display user list
     socket.on('userNameTitle', function(msg){	
         $('#userNameTitle').html(msg);
     });
 
+    //update user list
+    socket.on('onlineUsers', function(msg){
+        $('#users').empty();
+        var message = "";
+        for (i = 0; i < msg.length; i += 2){
+            message += "<b>" + msg[i] + "</b>" + "<br/>"
+        }
+        $('#users').append($('<li>').html(message));
+    });
+
     //display chat messages
     socket.on('chat message', function(msg1, name, msg2, color){
+        var userMessage;
         name = name.fontcolor(color);
-        message = msg1 + name + msg2;
-        $('#messages').append($('<li>').html(message));
+        userMessage = msg1 + name + msg2;
+        $('#messages').append($('<li>').html(userMessage));
         $('#messages').scrollTop($('#messages')[0].scrollHeight);
     });
 
@@ -54,9 +51,10 @@ $(function () {
 
     //bold own message
     socket.on('bold message', function(msg1, name, msg2, color){
+        var boldMessage;
         name = name.fontcolor(color);
-        fullMessage = "<b>" + msg1 + name + msg2 + "</b>";
-        $('#messages').append($('<li>').html(fullMessage));
+        boldMessage = "<b>" + msg1 + name + msg2 + "</b>";
+        $('#messages').append($('<li>').html(boldMessage));
         $('#messages').scrollTop($('#messages')[0].scrollHeight);
     });
   });

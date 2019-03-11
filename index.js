@@ -5,7 +5,6 @@ var io = require('socket.io')(http);
 var userCount = 0;
 var userNameList = [];
 var chatHistory = [];
-var users = [];
 
 app.use(express.static('public'));
 app.get('/', function(req, res){
@@ -24,7 +23,7 @@ http.listen(3000, function(){
 
 io.on('connection', function (socket) {
     userCount++;
-    console.log('User connected', userCount);
+    console.log('User connected');
 
     //add user
     socket.on('adduser', function(){
@@ -51,7 +50,7 @@ io.on('connection', function (socket) {
           }
         }
         io.emit('onlineUsers', userNameList);
-        console.log('user disconnected', userCount);
+        console.log('User disconnected');
         userCount--;
     });
 
@@ -87,7 +86,7 @@ io.on('connection', function (socket) {
                     userNameList[j] = socket.nickname;
                   }
                 }
-                socket.emit('userNameTitle', "Nick name is: " + socket.nickname);
+                socket.emit('userNameTitle', "You are " + socket.nickname);
                 
                 io.emit('onlineUsers', userNameList);
             }
