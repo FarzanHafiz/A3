@@ -1,5 +1,9 @@
 $(function () {
     var socket = io();
+    var chatMessage = "";
+    var message;
+    var fullMessage;
+
     $('form').submit(function(e){
       e.preventDefault(); // prevents page reloading
       socket.emit('chat message', $('#m').val());
@@ -20,14 +24,12 @@ $(function () {
 
     //update user list
     socket.on('onlineUsers', function(msg){
+        len = msg.length;
         $('#users').empty();
-
-        var message = "";
-        for (i = 0; i < msg.length; i += 2)
-        {
-            message += "<b>" + msg[i] + "</b>" + "<br/>"
+        for(i = 0; i < msg.length; i += 2){
+          chatMessage += "<b>" + msg[i] + "</b>" + "<br/>";
         }
-        $('#users').append($('<li>').html(message));
+        $('#users').append($('<li>').html(chatMessage));
     });
 
     //display user list
@@ -37,19 +39,9 @@ $(function () {
 
     //display chat messages
     socket.on('chat message', function(msg1, name, msg2, color){
-        var entireMessage;
         name = name.fontcolor(color);
-        entireMessage = msg1 + name + msg2;
-        $('#messages').append($('<li>').html(entireMessage));
-        $('#messages').scrollTop($('#messages')[0].scrollHeight);
-    });
-
-    //bold own message
-    socket.on('bold message', function(msg1, name, msg2, color){
-        var completeMessage;
-        name = name.fontcolor(color);
-        completeMessage = "<b>" + msg1 + name + msg2 + "</b>";
-        $('#messages').append($('<li>').html(completeMessage));
+        message = msg1 + name + msg2;
+        $('#messages').append($('<li>').html(message));
         $('#messages').scrollTop($('#messages')[0].scrollHeight);
     });
 
@@ -57,6 +49,14 @@ $(function () {
     socket.on('chat history', function(msg){
         msg = "<i>" + msg + "</i>";
         $('#messages').append($('<li>').html(msg));
+        $('#messages').scrollTop($('#messages')[0].scrollHeight);
+    });
+
+    //bold own message
+    socket.on('bold message', function(msg1, name, msg2, color){
+        name = name.fontcolor(color);
+        fullMessage = "<b>" + msg1 + name + msg2 + "</b>";
+        $('#messages').append($('<li>').html(fullMessage));
         $('#messages').scrollTop($('#messages')[0].scrollHeight);
     });
   });
