@@ -54,7 +54,7 @@ io.on('connection', function (socket) {
         userCount--;
     });
 
-    //send message to everyone
+    //broadcast messages
     socket.on('chat message', function(msg){
         var hours = new Date().getHours();
         var minutes = new Date().getMinutes();
@@ -69,7 +69,7 @@ io.on('connection', function (socket) {
             seconds = "0" + seconds;
         }
 
-        //nickname change command
+        //if the user types in nickname change command
         if (msg.startsWith("/nick ")){
             var nameChange;
             var invalidName = false;
@@ -77,6 +77,7 @@ io.on('connection', function (socket) {
             for (i = 0; i < userNameList.length; i += 2){
               if (nameChange === userNameList[i]){                  
                 invalidName = true;
+                socket.emit('chat message', "Nickname already exists. Pick a different one.");
               }
             }
             if (invalidName == false){
@@ -86,6 +87,7 @@ io.on('connection', function (socket) {
                     userNameList[j] = socket.nickname;
                   }
                 }
+                socket.emit('chat message', "Your new nickname is " + socket.nickname + "!");
                 socket.emit('userNameTitle', "You are " + socket.nickname);
                 
                 io.emit('onlineUsers', userNameList);
