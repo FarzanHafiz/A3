@@ -7,11 +7,6 @@ $(function () {
       return false;
     });
 
-    socket.on('chat message', function(msg){
-      $('#messages').append($('<li>').text(msg));
-      $('#messages').scrollTop($('#messages')[0].scrollHeight);
-    });
-
     //add user
     socket.on('connect', function(){
         socket.emit('adduser');
